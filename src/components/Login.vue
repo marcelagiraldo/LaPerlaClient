@@ -1,5 +1,57 @@
-<script setup>
-import { RouterLink } from 'vue-router'
+<script>
+    import { RouterLink } from 'vue-router'
+    import router from '../router/index.js';
+    import axios from 'axios';
+    import { ref } from 'vue';
+    import { Alert } from 'bootstrap';
+    export default {
+        name:'Product',
+        props:{msg:String},
+        components:{
+
+        },
+        data() {
+            const userValue = ref('')
+            const passwordValue = ref('')
+            const checkin = false
+            return {
+                users: [],
+                userValue,passwordValue,checkin
+            };
+        },
+        mounted() {
+            this.getProducts();
+        },
+        methods: {
+            async getProducts() {
+                try {
+                    const response = await axios.get('http://localhost:8001/user/users');
+                    this.users = response.data
+                    console.log(this.users);
+                } catch (error) {
+                    console.error('Error al obtener productos:', error);
+                }
+            },
+            checkUser(){
+                console.log("Valor del user: ",this.userValue);
+                console.log("Valor del password: ",this.passwordValue);
+                for (let user of this.users) {
+                    console.log("Valor del user user: ", user.user);
+                    console.log("Valor del password password: ", user.password);
+
+                    if (this.userValue === user.user && this.passwordValue === user.password) {
+                        console.log("Usuario válido encontrado");
+                        this.checkin = true;
+                        this.$router.push('/principal');
+                        return; // Salir del bucle si se encuentra un usuario válido
+                    }
+                }
+
+                // Si el bucle termina y no se encuentra un usuario válido, mostrar un mensaje de alerta
+                alert("Incorrecto");
+            }
+        }
+    }
 </script>
 
 <template>
@@ -8,14 +60,14 @@ import { RouterLink } from 'vue-router'
         <h1>INICIO DE SESIÓN</h1>
         <div class="usuario">
             <label for="formGroupExampleInput" class="form-label">Usuario</label>
-            <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Usuario">
+            <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Usuario" v-model="userValue">
         </div>
         <div class="contrasena">
             <label for="formGroupExampleInput2" class="form-label">Contraseña</label>
-            <input type="password" class="form-control" id="formGroupExampleInput2" placeholder="Contraseña">
+            <input type="password" class="form-control" id="" placeholder="Contraseña" v-model="passwordValue">
         </div>
         <!-- <a href="" class="entrar">Entrar</a> -->
-        <RouterLink class="entrar" :to="{ name: 'principal' }">Entrar</RouterLink>
+        <a class="entrar" @click="checkUser">Entrar</a>
 
     </div>
 </template>

@@ -63,7 +63,7 @@ body {
   height: 100%;
   min-height: 100vh;
   color: black;
-  background: #D4B86F;
+  background: white;
   transition:
     color 0.5s,
     background-color 0.5s;

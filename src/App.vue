@@ -17,6 +17,6 @@ import { RouterLink, RouterView } from 'vue-router'
   font-size: 40px;
   width: 100%;
   height: 100vh;
-  background-color: #D4B86F;
+  background-color: #F4F1BB;
 }
 </style>
