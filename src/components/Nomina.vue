@@ -1,9 +1,29 @@
 <script>
 import Navbar from './Navbar.vue'
+import axios from 'axios';
 export default {
-  components: {
-    Navbar
-  },
+    components: {
+        Navbar
+    },
+    data() {
+        return {
+            payrolls: [],
+        };
+    },
+    mounted() {
+        this.getPayrolls();
+    },
+    methods: {
+        async getPayrolls() {
+            try {
+                const response = await axios.get('http://localhost:8001/payroll/payrolls');
+                this.payrolls = response.data
+                console.log(this.payrolls);
+            } catch (error) {
+                console.error('Error al obtener Nomina:', error);
+            }
+        }
+    }
 }
 </script>
 
@@ -29,36 +49,24 @@ export default {
             </RouterLink>
         </div>
         <table>
-            <tr>
-                <th>Fecha</th>
-                <th>Actividad</th>
-                <th>Responsable</th>
-                <th>Observación</th>
-            </tr>
-            <tr>
-                <td>Fecha</td>
-                <td>Actividad</td>
-                <td>Responsable</td>
-                <td>Observación</td>
-            </tr>
-            <tr>
-                <td>Fecha</td>
-                <td>Actividad</td>
-                <td>Responsable</td>
-                <td>Observación</td>
-            </tr>
-            <tr>
-                <td>Fecha</td>
-                <td>Actividad</td>
-                <td>Responsable</td>
-                <td>Observación</td>
-            </tr>
-            <tr>
-                <td>Fecha</td>
-                <td>Actividad</td>
-                <td>Responsable</td>
-                <td>Observación</td>
-            </tr>
+            <thead>
+                <tr>
+                    <th>Fecha</th>
+                    <th>Actividad</th>
+                    <th>Categoría</th>
+                    <th>Responsable</th>
+                    <th>Observación</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="payroll in payrolls" :key="payroll.id">
+                    <td>{{ payroll.date_ }}</td>
+                    <td>{{ payroll.activity }}</td>
+                    <td>{{ payroll.category }}</td>
+                    <td>{{ payroll.responsible }}</td>
+                    <td>{{ payroll.observation }}</td>
+                </tr>
+            </tbody>
         </table>
     </div>
 

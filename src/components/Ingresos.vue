@@ -1,9 +1,30 @@
 <script>
 import Navbar from './Navbar.vue'
+import { ref } from 'vue';
+import axios from 'axios';
 export default {
-  components: {
-    Navbar
-  },
+    components: {
+        Navbar
+    },
+    data() {
+        return {
+            incomes: [],
+        };
+    },
+    mounted() {
+        this.getProducts();
+    },
+    methods: {
+        async getProducts() {
+            try {
+                const response = await axios.get('http://localhost:8001/income/incomes');
+                this.incomes = response.data
+                console.log(this.incomes);
+            } catch (error) {
+                console.error('Error al obtener Ingresos:', error);
+            }
+        }
+    }
 }
 </script>
 
@@ -29,41 +50,24 @@ export default {
             </RouterLink>
         </div>
         <table>
-            <tr>
-                <th>Fecha</th>
-                <th>Categoría</th>
-                <th>Valor</th>
-                <th>Descripción</th>
-                <th>Observación</th>
-            </tr>
-            <tr>
-                <td>Fecha</td>
-                <td>Categoría</td>
-                <td>Valor</td>
-                <td>Descripción</td>
-                <td>Observación</td>
-            </tr>
-            <tr>
-                <td>Fecha</td>
-                <td>Categoría</td>
-                <td>Valor</td>
-                <td>Descripción</td>
-                <td>Observación</td>
-            </tr>
-            <tr>
-                <td>Fecha</td>
-                <td>Categoría</td>
-                <td>Valor</td>
-                <td>Descripción</td>
-                <td>Observación</td>
-            </tr>
-            <tr>
-                <td>Fecha</td>
-                <td>Categoría</td>
-                <td>Valor</td>
-                <td>Descripción</td>
-                <td>Observación</td>
-            </tr>
+            <thead>
+                <tr>
+                    <th>Fecha</th>
+                    <th>Categoría</th>
+                    <th>Valor</th>
+                    <th>Descripción</th>
+                    <th>Observación</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="income in incomes" :key="income.id">
+                    <td>{{ income.date_ }}</td>
+                    <td>{{ income.category }}</td>
+                    <td>{{ income.price }}</td>
+                    <td>{{ income.desciption }}</td>
+                    <td>{{ income.observation }}</td>
+                </tr>
+            </tbody>
         </table>
     </div>
 

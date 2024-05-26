@@ -1,9 +1,29 @@
 <script>
 import Navbar from './Navbar.vue'
+import axios from 'axios'
 export default {
-  components: {
-    Navbar
-  },
+    components: {
+        Navbar
+    },
+    data() {
+        return {
+            expenses: [],
+        };
+    },
+    mounted() {
+        this.getExpenses();
+    },
+    methods: {
+        async getExpenses() {
+            try {
+                const response = await axios.get('http://localhost:8001/expense/expenses');
+                this.expenses = response.data
+                console.log(this.expenses);
+            } catch (error) {
+                console.error('Error al obtener Egresos:', error);
+            }
+        }
+    }
 }
 </script>
 
@@ -29,41 +49,24 @@ export default {
             </RouterLink>
         </div>
         <table>
-            <tr>
-                <th>Fecha</th>
-                <th>Categoría</th>
-                <th>Valor</th>
-                <th>Descripción</th>
-                <th>Observación</th>
-            </tr>
-            <tr>
-                <td>Fecha</td>
-                <td>Categoría</td>
-                <td>Valor</td>
-                <td>Descripción</td>
-                <td>Observación</td>
-            </tr>
-            <tr>
-                <td>Fecha</td>
-                <td>Categoría</td>
-                <td>Valor</td>
-                <td>Descripción</td>
-                <td>Observación</td>
-            </tr>
-            <tr>
-                <td>Fecha</td>
-                <td>Categoría</td>
-                <td>Valor</td>
-                <td>Descripción</td>
-                <td>Observación</td>
-            </tr>
-            <tr>
-                <td>Fecha</td>
-                <td>Categoría</td>
-                <td>Valor</td>
-                <td>Descripción</td>
-                <td>Observación</td>
-            </tr>
+            <thead>
+                <tr>
+                    <th>Fecha</th>
+                    <th>Categoría</th>
+                    <th>Valor</th>
+                    <th>Descripción</th>
+                    <th>Observación</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="expense in expenses" :key="expense.id">
+                    <td>{{ expense.date_ }}</td>
+                    <td>{{ expense.category }}</td>
+                    <td>{{ expense.price }}</td>
+                    <td>{{ expense.desciption }}</td>
+                    <td>{{ expense.observation }}</td>
+                </tr>
+            </tbody>
         </table>
     </div>
 

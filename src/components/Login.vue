@@ -1,14 +1,8 @@
 <script>
-    import { RouterLink } from 'vue-router'
-    import router from '../router/index.js';
     import axios from 'axios';
     import { ref } from 'vue';
-    import { Alert } from 'bootstrap';
     export default {
-        name:'Product',
-        props:{msg:String},
         components:{
-
         },
         data() {
             const userValue = ref('')
