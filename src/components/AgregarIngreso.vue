@@ -106,7 +106,7 @@ export default {
                 </div>
                 <div class="mb-3">
                     <label for="exampleFormControlTextarea1" class="form-label">Observación</label>
-                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="6" v-model="observationIncome"></textarea>
+                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="6" cols="90" v-model="observationIncome"></textarea>
                 </div>
             </div>
             <div class="modal" v-if="showModal">

@@ -14,6 +14,10 @@ import EditarNomina from '../components/EditarNomina.vue'
 import AgregarNomina from '../components/AgregarNomina.vue'
 import EliminarNomina from '../components/EliminarNomina.vue'
 import Facturas from '../components/Facturas.vue'
+import NuevoUsuario from '../components/NuevoUsuario.vue'
+import Usuarios from '@/components/Usuarios.vue'
+import UsuarioEliminado from '@/components/UsuarioEliminado.vue'
+import UsuarioEditado from '@/components/UsuarioEditado.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -92,6 +96,26 @@ const router = createRouter({
       path: '/facturas',
       name: 'facturas',
       component: Facturas
+    },
+    {
+      path: '/usuarios-nuevos',
+      name: 'usuarios-nuevos',
+      component: NuevoUsuario
+    },
+    {
+      path: '/usuarios',
+      name: 'usuarios',
+      component: Usuarios
+    },
+    {
+      path: '/usuarios-eliminado',
+      name: 'usuarios_eliminado',
+      component: UsuarioEliminado
+    },
+    {
+      path: '/usuarios-editado',
+      name: 'usuario-editado',
+      component: UsuarioEditado
     }/* ,
     {
       path: '/about',

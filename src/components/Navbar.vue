@@ -10,8 +10,9 @@ import { RouterLink } from 'vue-router'
         <div class="options">
             <RouterLink class="" :to="{ name: 'ingresos' }">Ingresos</RouterLink>
             <RouterLink class="" :to="{ name: 'egresos' }">Egresos</RouterLink>
-            <RouterLink class="" :to="{ name: 'nomina' }">Nómina</RouterLink>
-            <RouterLink class="" :to="{ name: 'facturas' }">Facturas</RouterLink>
+            <RouterLink class="" :to="{ name: 'nomina' }">Planilla</RouterLink>
+            <a class="">Facturas</a>
+            <a class="">Calendario</a>
         </div>
         <div class="dropdown">
             <button id="btn-dropdown" class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -21,7 +22,7 @@ import { RouterLink } from 'vue-router'
             </button>
             <ul class="dropdown-menu">
                 <li><a class="dropdown-item" href="#">Perfil</a></li>
-                <li><RouterLink class="dropdown-item" :to="{ name: 'login' }">Usuarios</RouterLink></li>
+                <li><RouterLink class="dropdown-item" :to="{ name: 'usuarios' }">Usuarios</RouterLink></li>
                 <li><RouterLink class="dropdown-item" :to="{ name: 'login' }">Cerrar sesión</RouterLink></li>
             </ul>
         </div>
@@ -38,12 +39,12 @@ import { RouterLink } from 'vue-router'
 }
 .options{
     margin-left: 20%;
-    margin-right: 30%;
+    margin-right: 25%;
     display: flex;
     justify-content: center;
 }
 .options a{
-    margin-left: 25%;
+    margin-left: 10%;
     color: black;
     text-decoration: none;
 }
