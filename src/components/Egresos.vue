@@ -62,7 +62,7 @@ export default {
                 <tr v-for="expense in expenses" :key="expense.id">
                     <td>{{ expense.date_ }}</td>
                     <td>{{ expense.category }}</td>
-                    <td>{{ expense.price }}</td>
+                    <td>{{ expense.price|intcomma }}</td>
                     <td>{{ expense.desciption }}</td>
                     <td>{{ expense.observation }}</td>
                 </tr>

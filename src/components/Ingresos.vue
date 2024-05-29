@@ -64,7 +64,7 @@ export default {
                     <td>{{ income.date_ }}</td>
                     <td>{{ income.category }}</td>
                     <td>{{ income.price }}</td>
-                    <td>{{ income.desciption }}</td>
+                    <td>{{ income.description }}</td>
                     <td>{{ income.observation }}</td>
                 </tr>
             </tbody>
@@ -99,5 +99,8 @@ th {
 .title a{
     margin-left: 50px;
     color: black;
+}
+table tbody tr td{
+    font-size: 27px;
 }
 </style>

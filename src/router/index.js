@@ -13,6 +13,7 @@ import Nomina from '../components/Nomina.vue'
 import EditarNomina from '../components/EditarNomina.vue'
 import AgregarNomina from '../components/AgregarNomina.vue'
 import EliminarNomina from '../components/EliminarNomina.vue'
+import Facturas from '../components/Facturas.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -86,6 +87,11 @@ const router = createRouter({
       path: '/editar-nomina',
       name: 'editar_nomina',
       component: EditarNomina
+    },
+    {
+      path: '/facturas',
+      name: 'facturas',
+      component: Facturas
     }/* ,
     {
       path: '/about',

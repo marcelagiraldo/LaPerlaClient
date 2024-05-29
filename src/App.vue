@@ -18,5 +18,6 @@ import { RouterLink, RouterView } from 'vue-router'
   width: 100%;
   height: 100vh;
   background-color: #F4F1BB;
+  font-family: Georgia, 'Times New Roman', Times, serif;
 }
 </style>

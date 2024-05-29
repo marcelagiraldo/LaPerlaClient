@@ -1,18 +1,93 @@
 <script>
+import { ref } from 'vue';
 import Navbar from './Navbar.vue'
+import axios from 'axios';
 export default {
-  components: {
-    Navbar
-  },
+    components: {
+        Navbar
+    },
+    data() {
+        const d = new Date();
+        const diasSemana = ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"];
+        const meses = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
+
+        const diaSemana = diasSemana[d.getDay()];
+        const dia = d.getDate();
+        const mes = meses[d.getMonth()];
+        const año = d.getFullYear();
+        d.getHours()
+        d.getMinutes()
+        const fechaFormateada = `${diaSemana} ${dia} de ${mes} de ${año}`;
+        return {
+            incomes: [],
+            expenses: [],
+            balance:0,
+            fechaFormateada,d
+        };
+    },
+    mounted() {
+        this.getBalance()
+    },
+    methods: {
+        async getIncomes() {
+            try {
+                const response = await axios.get('http://localhost:8001/income/incomes');
+                this.incomes = response.data
+                console.log("Incomes: ",this.incomes);
+            } catch (error) {
+                console.error('Error al obtener Ingresos:', error);
+            }
+        },
+        async getExpense() {
+            try {
+                const response = await axios.get('http://localhost:8001/expense/expenses');
+                this.expenses = response.data
+                console.log("Expenses: ",this.expenses);
+            } catch (error) {
+                console.error('Error al obtener Ingresos:', error);
+            }
+        },
+        async getBalance(){
+            try {
+                await this.getIncomes();
+                await this.getExpense();
+
+                let sumIncomes = 0;
+                let sumExpenses = 0;
+
+                console.log("Longitud array: ", this.expenses.length);
+
+                this.expenses.forEach(expense => {
+                    console.log("Estoy en for1:");
+                    console.log("Precio expense: ", expense.price);
+                    let priceE = parseInt(expense.price)
+                    sumExpenses += priceE;
+                });
+
+                this.incomes.forEach(income => {
+                    console.log("Precio income: ", income.price);
+                    let priceI = parseInt(income.price)
+                    sumIncomes += priceI;
+                });
+
+                this.balance = (sumIncomes - sumExpenses).toLocaleString('es-ES');
+                console.log("Este es el balance: ", this.balance);
+                console.log("Suma Ingresos: ", sumIncomes);
+                console.log("Suma Egresos: ", sumExpenses);
+            } catch (error) {
+                console.error('Error al obtener balance:', error);
+            }
+        }
+    }
 }
 </script>
 
 <template>
     <Navbar/>
     <div class="content">
-        <label for="">FECHA</label>
+        <label for="">FECHA: {{ fechaFormateada }}</label>
         <h1>Balance actual:</h1>
-        <label for="">$</label>
+        <label for="">${{ balance }}</label>
         <div id="carouselExampleFade" class="carousel slide carousel-fade">
             <div class="carousel-inner">
                 <div class="carousel-item ">
@@ -45,6 +120,7 @@ export default {
     justify-content: center;
     align-items: center;
     width: 100%;
+    font-family: Georgia, 'Times New Roman', Times, serif;
 }
 .carousel-inner {
     width: 900px; /* Establecer el ancho deseado */
@@ -52,8 +128,9 @@ export default {
 }
 
 .carousel-item img {
-    max-width: 100%;
+    max-width: 900px;
     height: auto;
     overflow: hidden;
 }
 </style>
+
